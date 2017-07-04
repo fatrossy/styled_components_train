@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/fatrossy/styled_components_train#readme",
   "dependencies": {
+    "numeral": "^2.0.6",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "styled-components": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
