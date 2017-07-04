@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledWrap = styled.div`
   font-family: 'Roboto Condensed', sans-serif;
   color: #FFFFFF;
+  text-transform: uppercase;
   display: flex;
   padding: 6px;
   margin: 0;
@@ -26,6 +27,7 @@ const BoxRow = styled.div`
   `
 
 const BottomParam = styled.div`
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -46,7 +48,6 @@ const Sides = styled.div`
 `
 
 const ParamLabel = styled.div`
-  font-size: 16px;
   font-weight: normal;
   display: flex;
   justify-content: flex-end;
@@ -56,12 +57,10 @@ const ParamLabel = styled.div`
 `
 
 const ParamValue = styled.div`
-  font-size: 16px;
-  font-weight: normal;
+  font-weight: bold;
   justify-content: flex-end;
   display: flex;
   min-width: 40%;
-  /* background-color: pink; */
   height: 100%;
 `
 
@@ -69,10 +68,8 @@ const KpiTitle = styled.span`
   font-size: 16px;
   font-weight: normal;
   justify-content: flex-end;
-  text-transform: uppercase;
   width: 100%;
   height: 50%;
-  ${'' /* background-color: lime; */}
 `
 const Tube = styled.div`
   position: absolute;
@@ -88,14 +85,22 @@ const Ball = styled.div`
   height: 6px;
   border-radius: 3px;
   background-color: rgba(255,255,255,1);
+  transition: all 500ms ease;
 `
 const Lable = styled.div`
   position: absolute;
   font-size: 14px;
   line-height: 14px;
   bottom: 3px;
+  display: flex;
+  flex-direction: row;
   left: ${props => props.percentage < 100 ? props.percentage : '100' }%;
   transform: translateX(-100%);
+  transition: all 500ms ease;
 `
 
-  export { StyledWrap, BoxRow, Sides, ParamLabel, ParamValue, BottomParam, KpiTitle, Tube, Ball, Lable };
+const StarP = styled.div`
+  margin-right: 6px;
+`
+
+export { StyledWrap, BoxRow, Sides, ParamLabel, ParamValue, BottomParam, KpiTitle, Tube, Ball, Lable, StarP };

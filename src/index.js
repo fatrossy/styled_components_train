@@ -1,54 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StyledWrap, BoxRow, Sides, ParamLabel, ParamValue, BottomParam, Data, KpiTitle, Tube, Ball, Lable } from './styles.js';
+import { StyledWrap, BoxRow, Sides, ParamLabel, ParamValue, BottomParam, Data, KpiTitle, Tube, Ball, Lable, StarP } from './styles.js';
 import { StyledBody } from './global-style.js';
 import { dataset } from './data.js'
-var numeral = require('numeral');
-function Wrapper(props){
+import {Star} from './star.js'
+import numeral from 'numeral'
 
- const CurValue = dataset.data.value;
- const PasYear = dataset.data.py;
- const DataLable = dataset.label;
+export default class Wrapper extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      isGoal: false
+    }
+    this.handleGoal = this.handleGoal.bind(this)
+  }
 
- const perc = CurValue / PasYear * 100;
+  handleGoal(){
+    this.setState({
+      isGoal: !this.state.isGoal
+    })
 
- const prettyPerc = numeral(perc / 100 ).format('0.0%')
- console.log(perc);
-
-  return (
-    <StyledWrap>
-
-      <BoxRow>
-
-        <Sides>
-          {CurValue}
-        </Sides>
-
-        <Sides>
-          <KpiTitle>{DataLable}</KpiTitle>
-          <BottomParam>
-            <ParamLabel>PY</ParamLabel>
-            <ParamValue>{PasYear}</ParamValue>
-          </BottomParam>
-        </Sides>
-
-      </BoxRow>
+    console.log(this.state.isGoal)
+  }
 
 
-      <BoxRow>
-        <Tube>
-          <Ball percentage={perc}/>
-        </Tube>
-        <Lable percentage={perc}>{prettyPerc}</Lable>
-      </BoxRow>
+  render(){
+    const CurValue = this.props.data.data.value;
+    const DataLable = this.props.data.label;
 
-    </StyledWrap>
-  )
+    const param =  this.state.isGoal ? this.props.data.data.goal : this.props.data.data.py
+    const perc = CurValue / param * 100;
+
+    const prettyPerc = numeral(perc / 100 ).format('0.0%')
+
+    return (
+      <StyledWrap onClick={() => this.handleGoal()}>
+
+        <BoxRow>
+
+          <Sides>
+            {CurValue}
+          </Sides>
+
+          <Sides>
+            <KpiTitle>{DataLable}</KpiTitle>
+            <BottomParam>
+              <ParamLabel>{this.state.isGoal ? 'goal' : 'py'}</ParamLabel>
+              <ParamValue>{param}</ParamValue>
+            </BottomParam>
+          </Sides>
+
+        </BoxRow>
+
+
+        <BoxRow>
+          <Tube>
+            <Ball percentage={perc}/>
+          </Tube>
+
+
+
+          <Lable percentage={perc}>{perc > 100 && <StarP><Star /></StarP>}{prettyPerc}</Lable>
+        </BoxRow>
+
+      </StyledWrap>
+    )
+  }
 }
 
 
 ReactDOM.render(
-  <Wrapper />,
+  <Wrapper data={dataset} />,
   document.getElementById('app')
 );
 
